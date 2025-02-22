@@ -2697,6 +2697,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3481383399912595498}
+  - component: {fileID: 3481383399912595500}
   m_Layer: 5
   m_Name: CreateNickNamePanel
   m_TagString: Untagged
@@ -2704,6 +2705,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3481383399912595500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3481383399912595499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 670afcd5413b946468d5c30fee9ab278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelType: 0
+  panelAnimator: {fileID: 3481383400661967036}
+  inputField: {fileID: 3481383400446962389}
+  createNicknameButton: {fileID: 3481383400244792990}
+  minLengthOfNickname: 2
 --- !u!222 &3481383400084828649
 CanvasRenderer:
   m_ObjectHideFlags: 0
