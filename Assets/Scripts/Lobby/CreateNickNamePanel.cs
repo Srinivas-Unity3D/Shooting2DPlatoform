@@ -31,6 +31,7 @@ public class CreateNickNamePanel : LobbyPanelBase
 
         if (nickname.Length > minLengthOfNickname) 
         {
+            GlobalManager.Instance.networkRunnerController.SetPlayerNickname(nickname);
             base.ClosePanel();
             lobbyUIManager.ShowPanel(LobbyPanelType.MiddleSectionPanel);
         }

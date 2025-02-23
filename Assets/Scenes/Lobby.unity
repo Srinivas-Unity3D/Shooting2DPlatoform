@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231ab736960e900448bb7860ae980df7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkRunnerPreafab: {fileID: 7652314409776418267, guid: 46c2cf22d06db0942bfc1b90d6b2e424, type: 3}
+  networkRunnerPrefab: {fileID: 7652314409776418267, guid: 46c2cf22d06db0942bfc1b90d6b2e424, type: 3}
 --- !u!4 &147397255
 Transform:
   m_ObjectHideFlags: 0
