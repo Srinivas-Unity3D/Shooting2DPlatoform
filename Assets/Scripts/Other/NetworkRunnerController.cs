@@ -1,7 +1,7 @@
-using Fusion;
-using Fusion.Sockets;
 using System;
 using System.Collections.Generic;
+using Fusion;
+using Fusion.Sockets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,78 +9,65 @@ public class NetworkRunnerController : MonoBehaviour, INetworkRunnerCallbacks
 {
     public event Action OnStartedRunnerConnection;
     public event Action OnPlayerJoinedSuccessfully;
-
-    [SerializeField] private NetworkRunner networkRunnerPreafab;
+    
+    public string LocalPlayerNickname { get; private set; }
+    
+    [SerializeField] private NetworkRunner networkRunnerPrefab;
 
     private NetworkRunner networkRunnerInstance;
 
-    public void ShutDownRunner() 
+    public void ShutDownRunner()
     {
         networkRunnerInstance.Shutdown();
     }
 
-    public async void StartGame(GameMode mode, string roomName) 
+    public void SetPlayerNickname(string str)
+    {
+        LocalPlayerNickname = str;
+    }
+    
+    public async void StartGame(GameMode mode, string roomName)
     {
         OnStartedRunnerConnection?.Invoke();
-
-        if (networkRunnerInstance == null) 
+        
+        if (networkRunnerInstance == null)
         {
-            networkRunnerInstance = Instantiate(networkRunnerPreafab);
+            networkRunnerInstance = Instantiate(networkRunnerPrefab);
         }
-
+        
         networkRunnerInstance.AddCallbacks(this);
 
-        // networkRunnerInstance.ProvideInput = true;
+        networkRunnerInstance.ProvideInput = true;
 
-        StartGameArgs startGameArgs = new StartGameArgs()
-        {
-            GameMode = mode,
-            SessionName = roomName,
-            PlayerCount = 4,
-            SceneManager = networkRunnerInstance.GetComponent<INetworkSceneManager>()
-        };
+       StartGameArgs startGameArgs = new StartGameArgs()
+       {
+           GameMode = mode,
+           SessionName = roomName,
+           PlayerCount = 4,
+           SceneManager = networkRunnerInstance.GetComponent<INetworkSceneManager>()
+       };
 
-        StartGameResult result = await networkRunnerInstance.StartGame(startGameArgs);
-        if (result.Ok)
-        {
-            const string SCENE_NAME = "MainGame";
-            networkRunnerInstance.SetActiveScene(SCENE_NAME);
-        }
-        else 
-        {
-            Debug.LogError($"Failed to start: {result.ShutdownReason}");
-        }
+      StartGameResult result = await networkRunnerInstance.StartGame(startGameArgs);
+      if (result.Ok)
+      {
+          const string SCENE_NAME = "MainGame";
+          networkRunnerInstance.SetActiveScene(SCENE_NAME);
+      }
+      else
+      {
+          Debug.LogError($"Failed to start: {result.ShutdownReason}");
+      }
     }
 
-    public void OnConnectedToServer(NetworkRunner runner)
+    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        Debug.Log("OnConnectedToServer");
+       Debug.Log("OnPlayerJoined");
+       OnPlayerJoinedSuccessfully?.Invoke();
     }
 
-    public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
+    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        Debug.Log("OnConnectFailed");
-    }
-
-    public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
-    {
-        Debug.Log("OnConnectRequest");
-
-    }
-
-    public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data)
-    {
-        Debug.Log("OnCustomAuthenticationResponse");
-    }
-
-    public void OnDisconnectedFromServer(NetworkRunner runner)
-    {
-        Debug.Log("OnDisconnectedFromServer");
-    }
-
-    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
-    {
-        Debug.Log("OnHostMigration");
+        Debug.Log("OnPlayerLeft");
     }
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
@@ -93,15 +80,52 @@ public class NetworkRunnerController : MonoBehaviour, INetworkRunnerCallbacks
         Debug.Log("OnInputMissing");
     }
 
-    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
-        Debug.Log("OnPlayerJoined");
-        OnPlayerJoinedSuccessfully?.Invoke();
+        Debug.Log("OnShutdown");
+
+        const string LOBBY_SCENE = "Lobby";
+        SceneManager.LoadScene(LOBBY_SCENE);
     }
 
-    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
+    public void OnConnectedToServer(NetworkRunner runner)
     {
-        Debug.Log("OnPlayerLeft");
+        Debug.Log("OnConnectedToServer");
+    }
+
+    public void OnDisconnectedFromServer(NetworkRunner runner)
+    {
+        Debug.Log("OnDisconnectedFromServer");
+    }
+
+    public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
+    {
+        Debug.Log("OnConnectRequest");
+    }
+
+    public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
+    {
+        Debug.Log("OnConnectFailed");
+    }
+
+    public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
+    {
+        Debug.Log("OnUserSimulationMessage");
+    }
+
+    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
+    {
+        Debug.Log("OnSessionListUpdated");
+    }
+
+    public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data)
+    {
+        Debug.Log("OnCustomAuthenticationResponse");
+    }
+
+    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
+    {
+        Debug.Log("OnHostMigration");
     }
 
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data)
@@ -117,22 +141,5 @@ public class NetworkRunnerController : MonoBehaviour, INetworkRunnerCallbacks
     public void OnSceneLoadStart(NetworkRunner runner)
     {
         Debug.Log("OnSceneLoadStart");
-    }
-
-    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
-    {
-        Debug.Log("OnSessionListUpdated");
-    }
-
-    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
-    {
-        Debug.Log("OnShutdown");
-        const string LOBBY_SCENE = "Lobby";
-        SceneManager.LoadScene(LOBBY_SCENE);
-    }
-
-    public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
-    {
-        Debug.Log("OnUserSimulationMessage");
     }
 }
