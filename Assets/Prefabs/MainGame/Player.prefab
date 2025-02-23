@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6365383963996328067}
   - component: {fileID: 2537173041473671276}
   - component: {fileID: 7711834672258577737}
+  - component: {fileID: 879037848770586940}
   - component: {fileID: 6057484684235569661}
   - component: {fileID: 6191565379175769598}
   m_Layer: 0
@@ -63,6 +64,7 @@ MonoBehaviour:
   - {fileID: 6365383963996328067}
   - {fileID: 2537173041473671276}
   - {fileID: 7711834672258577737}
+  - {fileID: 879037848770586940}
   SimulationBehaviours: []
 --- !u!114 &6365383963996328067
 MonoBehaviour:
@@ -123,6 +125,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   player: {fileID: 2537173041473671276}
+--- !u!114 &879037848770586940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208038930208264713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e815d934bb93fe408712103ee8da6a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  localCam: {fileID: 123469804592489970}
+  pivotToRotate: {fileID: 208038932234822308}
 --- !u!50 &6057484684235569661
 Rigidbody2D:
   serializedVersion: 4
