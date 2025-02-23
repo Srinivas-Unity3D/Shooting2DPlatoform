@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 208038930208264719}
   - component: {fileID: 208038930208264718}
   - component: {fileID: 6365383963996328067}
+  - component: {fileID: 8552287902117386495}
+  - component: {fileID: 7944830458403563426}
   - component: {fileID: 6057484684235569661}
   - component: {fileID: 6191565379175769598}
   m_Layer: 0
@@ -59,6 +61,8 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 6365383963996328067}
+  - {fileID: 8552287902117386495}
+  - {fileID: 7944830458403563426}
   SimulationBehaviours: []
 --- !u!114 &6365383963996328067
 MonoBehaviour:
@@ -88,6 +92,34 @@ MonoBehaviour:
     RotTeleportRadians: 1.5
   UseLegacySharedModeInterpolation: 0
   TargetInterpolationDelay: 0.03
+--- !u!114 &8552287902117386495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208038930208264713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c9e846481f4984facee4f3f39191af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  moveSpeed: 6
+--- !u!114 &7944830458403563426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208038930208264713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ea601c4a1bc094786979129f70b533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  player: {fileID: 8552287902117386495}
 --- !u!50 &6057484684235569661
 Rigidbody2D:
   serializedVersion: 4
