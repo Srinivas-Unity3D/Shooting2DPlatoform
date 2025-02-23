@@ -10,7 +10,7 @@ public class PlayerSpawnerController : NetworkBehaviour, IPlayerJoined, IPlayerL
     {
         if (Runner.IsServer)
         {
-            foreach (PlayerRef item in Runner.ActivePlayers)
+            foreach (var item in Runner.ActivePlayers)
             {
                 SpawnPlayer(item);
             }
@@ -21,9 +21,9 @@ public class PlayerSpawnerController : NetworkBehaviour, IPlayerJoined, IPlayerL
     {
         if (Runner.IsServer)
         {
-            int index = playerRef % spawnPoints.Length;
-            Vector3 spawnPoint = spawnPoints[index].transform.position;
-            NetworkObject playerObject = Runner.Spawn(playerNetworkPrefab, spawnPoint, Quaternion.identity, playerRef);
+            var index = playerRef % spawnPoints.Length;
+            var spawnPoint = spawnPoints[index].transform.position;
+            var playerObject = Runner.Spawn(playerNetworkPrefab, spawnPoint, Quaternion.identity, playerRef);
             
             Runner.SetPlayerObject(playerRef, playerObject);
         }
@@ -33,11 +33,12 @@ public class PlayerSpawnerController : NetworkBehaviour, IPlayerJoined, IPlayerL
     {
         if (Runner.IsServer)
         {
-            if (Runner.TryGetPlayerObject(playerRef, out NetworkObject playerNetworkObject))
+            if (Runner.TryGetPlayerObject(playerRef, out var playerNetworkObject))
             {
                 Runner.Despawn(playerNetworkObject);
             }
             
+            //Reset player object
             Runner.SetPlayerObject(playerRef, null);
         }
     }

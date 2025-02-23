@@ -15,6 +15,7 @@ public class PlayerController : NetworkBehaviour, IBeforeUpdate
     
     private float horizontal; 
     private Rigidbody2D rigid;
+    private PlayerWeaponController playerWeaponController;
     
     private enum PlayerInputButtons
     {
@@ -25,6 +26,7 @@ public class PlayerController : NetworkBehaviour, IBeforeUpdate
     public override void Spawned()
     {
         rigid = GetComponent<Rigidbody2D>();
+        playerWeaponController = GetComponent<PlayerWeaponController>();
 
         SetLocalObjects();
     }
@@ -35,17 +37,23 @@ public class PlayerController : NetworkBehaviour, IBeforeUpdate
         {
             cam.SetActive(true);
 
-            string nickName = GlobalManager.Instance.networkRunnerController.LocalPlayerNickname;
+            var nickName = GlobalManager.Instance.networkRunnerController.LocalPlayerNickname;
             RpcSetNickName(nickName);
         }
     }
 
+    // Sends RPC to the HOST (from a client)
+    //"sources" define which PEER can send the rpc
+    //The RpcTargets defines on which it is executed!
     [Rpc(sources: RpcSources.InputAuthority, RpcTargets.StateAuthority)]
     private void RpcSetNickName(NetworkString<_8> nickName)
     {
         playerName = nickName;
     }
 
+    //For example -
+    //if i set on spawned method a name called "banana"
+    // and then on fun i change another name which is again "banana"
     private static void OnNicknameChanged(Changed<PlayerController> changed)
     {
         changed.Behaviour.SetPlayerNickname(changed.Behaviour.playerName);
@@ -56,8 +64,12 @@ public class PlayerController : NetworkBehaviour, IBeforeUpdate
         playerNameText.text = nickName + " " + Object.InputAuthority.PlayerId;
     }
     
+    //Happens before anything else Fusion does, network application, reconlation etc 
+    //Called at the start of the Fusion Update loop, before the Fusion simulation loop.
+    //It fires before Fusion does ANY work, every screen refresh.
     public void BeforeUpdate()
     {
+        //We are the local machine
         if (Runner.LocalPlayer == Object.HasInputAuthority)
         {
             const string HORIZONTAL = "Horizontal";
@@ -65,10 +77,13 @@ public class PlayerController : NetworkBehaviour, IBeforeUpdate
         }
     }
     
-    
+    //FUN
     public override void FixedUpdateNetwork()
     {
-        if (Runner.TryGetInputForPlayer<PlayerData>(Object.InputAuthority, out PlayerData input))
+        // will return false if:
+        //the client does not have State Authority or Input Authority
+        // the requested type of input does not exist in the simulation
+        if (Runner.TryGetInputForPlayer<PlayerData>(Object.InputAuthority, out var input))
         {
             rigid.velocity = new Vector2(input.HorizontalInput * moveSpeed, rigid.velocity.y);
             
@@ -78,20 +93,21 @@ public class PlayerController : NetworkBehaviour, IBeforeUpdate
 
     private void CheckJumpInput(PlayerData input)
     {
-        NetworkButtons pressed = input.networkButtons.GetPressed(buttonsPrev);
+        var pressed = input.NetworkButtons.GetPressed(buttonsPrev);
         if (pressed.WasPressed(buttonsPrev, PlayerInputButtons.Jump))
         {
             rigid.AddForce(Vector2.up *  jumpForce, ForceMode2D.Force);
         }
 
-        buttonsPrev = input.networkButtons;
+        buttonsPrev = input.NetworkButtons;
     }
 
     public PlayerData GetPlayerNetworkInput()
     {
         PlayerData data = new PlayerData();
         data.HorizontalInput = horizontal;
-        data.networkButtons.Set(PlayerInputButtons.Jump, Input.GetKey(KeyCode.Space));
+        data.GunPivotRotation = playerWeaponController.LocalQuaternionPivotRot;
+        data.NetworkButtons.Set(PlayerInputButtons.Jump, Input.GetKey(KeyCode.Space));
         return data;
     }
 }
