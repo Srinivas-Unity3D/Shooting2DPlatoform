@@ -6,4 +6,5 @@ using UnityEngine;
 public struct PlayerData : INetworkInput
 {
     public float HorizontalInput;
+    public NetworkButtons networkButtons;
 }
