@@ -38,6 +38,7 @@ public class PlayerSpawnerController : NetworkBehaviour, IPlayerJoined, IPlayerL
                 Runner.Despawn(playerNetworkObject);
             }
             
+            //Reset player object
             Runner.SetPlayerObject(playerRef, null);
         }
     }
