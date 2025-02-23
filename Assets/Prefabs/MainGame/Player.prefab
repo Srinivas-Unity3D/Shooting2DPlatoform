@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2537173041473671276}
   - component: {fileID: 7711834672258577737}
   - component: {fileID: 879037848770586940}
+  - component: {fileID: 5690386441883907236}
   - component: {fileID: 6057484684235569661}
   - component: {fileID: 6191565379175769598}
   m_Layer: 0
@@ -140,6 +141,21 @@ MonoBehaviour:
   _interpolationDataSource: 0
   localCam: {fileID: 123469804592489970}
   pivotToRotate: {fileID: 208038932234822308}
+--- !u!114 &5690386441883907236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208038930208264713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 108a7e5dbb740fc4d9e8d57292faa663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 8107570020755597532}
+  pivotGunTr: {fileID: 208038932234822308}
+  canvasTr: {fileID: 281023127062983633}
 --- !u!50 &6057484684235569661
 Rigidbody2D:
   serializedVersion: 4
@@ -306,6 +322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 208038931274321657}
   - component: {fileID: 208038931274321656}
+  - component: {fileID: 8107570020755597532}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -383,6 +400,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &8107570020755597532
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208038931274321658}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7646fc29583fad140968fc7f3c7c08c4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &208038931644409323
 GameObject:
   m_ObjectHideFlags: 0
