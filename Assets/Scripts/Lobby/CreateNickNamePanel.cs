@@ -7,14 +7,14 @@ using UnityEngine.UI;
 
 public class CreateNickNamePanel : LobbyPanelBase
 {
-    [Header("CreateNickNamePanel: vars")]
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private Button createNicknameButton;
     [SerializeField] private int minLengthOfNickname;
 
 
-    private void Start()
+    public override void InitPanel(LobbyUIManager uiManager)
     {
+        base.InitPanel(uiManager);
         createNicknameButton.interactable = false;
         createNicknameButton.onClick.AddListener(OnClickCreateNickname);
         inputField.onValueChanged.AddListener(OnInputValueChanged);
@@ -31,7 +31,8 @@ public class CreateNickNamePanel : LobbyPanelBase
 
         if (nickname.Length > minLengthOfNickname) 
         {
-            // todo
+            base.ClosePanel();
+            lobbyUIManager.ShowPanel(LobbyPanelType.MiddleSectionPanel);
         }
     }
 }
