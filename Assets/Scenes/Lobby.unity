@@ -123,6 +123,53 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &11773818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 11773819}
+  - component: {fileID: 11773820}
+  m_Layer: 0
+  m_Name: LobbyUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &11773819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11773818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11773820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11773818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd000f72ceb4a9b4b82d7b91cb93b506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lobbyPanels:
+  - {fileID: 3481383399912595500}
+  - {fileID: 3481383399001504112}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,6 +843,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3481383399001504111}
+  - component: {fileID: 3481383399001504112}
   m_Layer: 5
   m_Name: MiddleSectionPanel
   m_TagString: Untagged
@@ -823,6 +871,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3481383399001504112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3481383399001504080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87687f9bf6a6d6345b32b1b216107d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <panelType>k__BackingField: 2
+  panelAnimator: {fileID: 3481383398777808005}
 --- !u!114 &3481383399023228763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2697,6 +2759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3481383399912595498}
+  - component: {fileID: 3481383399912595500}
   m_Layer: 5
   m_Name: CreateNickNamePanel
   m_TagString: Untagged
@@ -2704,6 +2767,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3481383399912595500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3481383399912595499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 670afcd5413b946468d5c30fee9ab278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <panelType>k__BackingField: 1
+  panelAnimator: {fileID: 3481383400661967036}
+  inputField: {fileID: 3481383400446962389}
+  createNicknameButton: {fileID: 3481383400244792990}
+  minLengthOfNickname: 2
 --- !u!222 &3481383400084828649
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4260,3 +4340,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 682866676}
   - {fileID: 3481383398657586063}
+  - {fileID: 11773819}
